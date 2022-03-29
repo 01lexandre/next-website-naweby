@@ -10,7 +10,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="#">Naweby</a>
+          Bem ao Mundo <a href="#">Naweby</a>
         </h1>
       </main>
     </div>
