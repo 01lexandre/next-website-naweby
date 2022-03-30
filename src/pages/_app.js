@@ -1,17 +1,24 @@
 import { ThemeProvider } from 'styled-components'
-import { AnimatePresence } from 'framer-motion'
+import Head from 'next/head'
 
 import GlobalStyle from '../styles/global'
-import theme from '../styles/theme'
+import themeShema from '../styles/theme'
+
+import {ChakraProvider, extendTheme} from '@chakra-ui/react'
+
+const theme = extendTheme(themeShema)
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AnimatePresence exitBeforeEnter>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <Head>
+          <title>My new cool app</title>
+        </Head>
         <Component {...pageProps}/>
         <GlobalStyle />
-      </ThemeProvider>
-    </AnimatePresence>
+      </ChakraProvider>
+    </ThemeProvider>
   )
 }
 

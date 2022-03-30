@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import {useColorModeValue} from "@chakra-ui/react";
 export default createGlobalStyle`
   ::selection {
     background-color: ${props => props.theme.colors.secundary};
@@ -11,10 +12,13 @@ export default createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    width: 100%;
     font: ${props => props.theme.fontPatterns};
     color: ${props => props.theme.colors.text};
     background-color: ${props => props.theme.colors.background};
-    
+    a {
+      color: ${props => props.theme.colors.primary};
+    }
     p {
       font-size: 18px;
       line-height: 26px;
