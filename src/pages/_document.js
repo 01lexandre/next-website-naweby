@@ -6,6 +6,8 @@ import Document, {
   NextScript
 } from 'next/document'
 import {ServerStyleSheet} from 'styled-components'
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from '../styles/theme'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -35,17 +37,14 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt">
         <Head>
-          {/* eslint-disable-next-line @next/next/no-title-in-document-head */}
-          <title>My page title</title>
           <meta charSet="utf-8"/>
           <meta name="robots" content="index, follow"/>
           <link rel="icon" href="https://www.freenfe.com.br/favicon.ico"/>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;600;700&display=swap"
-            rel="stylesheet"
-          />
+
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         </Head>
         <body>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Main/>
         <NextScript/>
         </body>
