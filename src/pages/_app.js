@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
       <AnimatePresence exitBeforeEnter onExitComplete={handExitComplete}>
         <ChakraProvider theme={theme}>
           <Head>
-            <title>My new cool app</title>
+            <title>{process.env.APP_NAME} - {process.env.APP_SLOGAN}</title>
           </Head>
           <Component {...pageProps}/>
           <GlobalStyle />

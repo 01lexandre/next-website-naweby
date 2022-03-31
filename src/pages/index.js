@@ -28,9 +28,6 @@ export default function Home() {
   const bgSectionDestaquer = useColorModeValue('gray.300', 'gray.900')
   return (
     <>
-      <Head>
-        <title>Naweby</title>
-      </Head>
       <Box as={'header'} className={styles.header}>
         <Box as={'nav'} className={styles.nav}>
           <Container maxW='container.xl'>
