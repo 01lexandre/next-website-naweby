@@ -37,6 +37,10 @@ export default createGlobalStyle`
       font: ${props => props.theme.fontPatterns};
     }
   }
+  section {
+    z-index: 10;
+    position: relative;
+  }
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
