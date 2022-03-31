@@ -3,9 +3,9 @@ import Head from 'next/head'
 
 import GlobalStyle from '../styles/global'
 import themeShema from '../styles/theme'
-
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
 import {AnimatePresence} from "framer-motion";
+import Script from 'next/script'
 
 const theme = extendTheme(themeShema)
 
@@ -39,6 +39,16 @@ function MyApp({ Component, pageProps }) {
           <Head>
             <title>{process.env.APP_NAME} - {process.env.APP_SLOGAN}</title>
           </Head>
+          <Script
+            id="google-analytics"
+            src="https://www.googletagmanager.com/gtag/js?id=G-T7D3DX37BF"
+            onLoad={() => {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-T7D3DX37BF');
+            }}
+          />
           <Component {...pageProps}/>
           <GlobalStyle />
         </ChakraProvider>
