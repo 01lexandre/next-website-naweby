@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import styles from '../styles/css.module.scss'
 import {
   Avatar,
@@ -7,7 +6,7 @@ import {
   Center,
   Container,
   Flex, Grid, GridItem,
-  Heading, IconButton, Kbd, Link, SimpleGrid,
+  Heading, IconButton, SimpleGrid,
   Spacer, Tag, TagLabel,
   Text,
   useColorMode,
@@ -24,7 +23,6 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 
 export default function Home() {
   const {colorMode, toggleColorMode} = useColorMode()
-  const bgWhite = useColorModeValue('#fff', 'gray.200')
   const bgSectionDestaquer = useColorModeValue('gray.300', 'gray.900')
   return (
     <>
@@ -54,14 +52,14 @@ export default function Home() {
             <SimpleGrid columns={[1, 1, 2]} spacing='20px'>
               <Box>
                 <Heading as='h1' size='2xl'>
-                  Sua Sistema de Auto Peças completo e <Box as={'span'}
-                                                            color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>grátris</Box>.
+                  Seu Sistema de Auto Peças completo e <Box as={'span'}
+                                                            color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>grátis</Box>.
                 </Heading>
                 <Text fontSize='xl' pb={5}>
                   Gerenciar sua auto peças com segurança nunca esteve tão fácil
                   por meio do gerenciamento prático e enxuto do Naweby.
                 </Text>
-                <NextLink href="#mais" scroll={false}>
+                <NextLink href="#mais" scroll={false} passHref>
                   <Button colorScheme='gray' size='lg' mt={3}>
                     Saiba Mais
                   </Button>
