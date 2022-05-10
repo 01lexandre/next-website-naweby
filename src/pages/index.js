@@ -15,7 +15,7 @@ import {
 import Image from 'next/image'
 import theme from '../styles/theme'
 import logoPrincipal from '../assets/logo-princ.png'
-import ImagePrincipal from '../assets/anun-princ-123.png'
+import ImagePrincipal from '../assets/dfasda123.png'
 import ImageCotacao from '../assets/cota-naw-12333.png'
 import ImageResult from '../assets/cota-naw-4444433.png'
 import NextLink from 'next/link'
@@ -28,11 +28,8 @@ export default function Home() {
     <>
       <Box as={'header'} className={styles.header}>
         <Box as={'nav'} className={styles.nav}>
-          <Container maxW='container.xl'>
+          <Container maxW='container.lg'>
             <Flex>
-              <Center p='2'>
-              </Center>
-              <Spacer/>
               <Center>
                 <Image
                   width={225}
@@ -43,42 +40,49 @@ export default function Home() {
               </Center>
               <Spacer/>
               <Center>
+                <NextLink href="https://web.naweby.com.br" passHref>
+                  <Button colorScheme='primary' variant='outline' size='md'>
+                    Entrar
+                  </Button>
+                </NextLink>
+                <NextLink href="https://web.naweby.com.br/cadastro-novo-usuario" passHref>
+                  <Button colorScheme='primary' ml={5} size='md'>
+                    Cadastrar-se
+                  </Button>
+                </NextLink>
               </Center>
             </Flex>
           </Container>
         </Box>
-        <Box as={'section'} pt={'5rem'} pb={'5rem'} minH={450} display={'flex'} alignItems={'center'}>
-          <Container maxW='container.lg' textAlign={'left'}>
-            <SimpleGrid columns={[1, 1, 2]} spacing='20px'>
+        <Box as={'section'} pt={'5rem'} pb={'5rem'} alignItems={'center'}>
+          <Flex justifyContent={'center'}>
+            <Box textAlign={'center'}>
+              <Heading as='h1' size='2xl' textAlign={'center'}>
+                Seu Sistema de Auto Peças <br/>
+                completo e <Box as={'span'} color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>grátis</Box>.
+              </Heading>
               <Box>
-                <Heading as='h1' size='2xl'>
-                  Seu Sistema de Auto Peças completo e <Box as={'span'}
-                                                            color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>grátis</Box>.
-                </Heading>
-                <Text fontSize='xl' pb={5}>
-                  Gerenciar sua auto peças com segurança nunca esteve tão fácil
-                  por meio do gerenciamento prático e enxuto do Naweby.
-                </Text>
                 <NextLink href="#mais" scroll={false} passHref>
                   <Button colorScheme='gray' size='lg' mt={3}>
                     Saiba Mais
                   </Button>
                 </NextLink>
-
-                <Button colorScheme='primary' size='lg' marginLeft={3} mt={3}>
-                  Registrar
-                </Button>
+                <NextLink href="https://web.naweby.com.br/cadastro-novo-usuario" passHref>
+                  <Button colorScheme='primary' size='lg' marginLeft={3} mt={3}>
+                    Registrar
+                  </Button>
+                </NextLink>
               </Box>
-              <Box textAlign={"right"}>
+              <Box mt={5}>
                 <Image
-                  width={431}
-                  height={383}
+                  width={793}
+                  height={431}
                   src={ImagePrincipal}
-                  alt='Dan Abramov'
+                  alt='Seu Sistema de Auto Peças'
                 />
               </Box>
-            </SimpleGrid>
-          </Container>
+            </Box>
+          </Flex>
         </Box>
       </Box>
       <main>
@@ -196,9 +200,11 @@ export default function Home() {
             <Heading as='h4' size='lg'>
               Tudo o que você precisa para fazer a gestão da sua pequena empresa.
             </Heading>
-            <Button colorScheme='primary' size='lg' marginLeft={3} mt={3}>
-              Registrar
-            </Button>
+            <NextLink href="https://web.naweby.com.br/cadastro-novo-usuario" passHref>
+              <Button colorScheme='primary' size='lg' marginLeft={3} mt={3}>
+                Registrar
+              </Button>
+            </NextLink>
           </Container>
         </Box>
       </main>
