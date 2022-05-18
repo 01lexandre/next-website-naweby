@@ -41,12 +41,12 @@ function MyApp({ Component, pageProps }) {
           </Head>
           <Script
             id="google-analytics"
-            src="https://www.googletagmanager.com/gtag/js?id=G-T7D3DX37BF"
+            src="https://www.googletagmanager.com/gtag/js?id=UA-229188980-1"
             onLoad={() => {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-T7D3DX37BF');
+              gtag('config', 'UA-229188980-1');
             }}
           />
           <Component {...pageProps}/>
