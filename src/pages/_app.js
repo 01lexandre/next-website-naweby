@@ -6,8 +6,12 @@ import themeShema from '../styles/theme'
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
 import {AnimatePresence} from "framer-motion";
 import Script from 'next/script'
-
+import NavBar from "../Components/NavBar";
+import Footer from "../Components/Footer";
 const theme = extendTheme(themeShema)
+
+import { DefaultSeo } from 'next-seo';
+import SEO from '../../next-seo.config';
 
 // The handler to smoothly scroll the element into view
 const handExitComplete = () => {
@@ -36,9 +40,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <AnimatePresence exitBeforeEnter onExitComplete={handExitComplete}>
         <ChakraProvider theme={theme}>
-          <Head>
-            <title>{process.env.APP_NAME} - {process.env.APP_SLOGAN}</title>
-          </Head>
+          <DefaultSeo {...SEO} />
           <Script
             id="google-analytics"
             src="https://www.googletagmanager.com/gtag/js?id=G-T7D3DX37BF"
@@ -49,8 +51,10 @@ function MyApp({ Component, pageProps }) {
               gtag('config', 'G-T7D3DX37BF');
             }}
           />
+          <NavBar />
           <Component {...pageProps}/>
           <GlobalStyle />
+          <Footer />
         </ChakraProvider>
       </AnimatePresence>
     </ThemeProvider>
