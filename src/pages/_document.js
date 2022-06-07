@@ -34,7 +34,7 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico"/>
           <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
                 rel="stylesheet"/>
-          <meta name="theme-color" content="#3524cf" />
+          <meta name="theme-color" content="#3524cf"/>
           {/*<meta name="description"*/}
           {/*      content={process.env.APP_DESCRIPTION}/>*/}
           {/*<meta property="og:title" content={process.env.APP_NAME + ' - ' + process.env.APP_SLOGAN}/>*/}
