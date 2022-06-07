@@ -12,6 +12,7 @@ const theme = extendTheme(themeShema)
 
 import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
+import {useRouter} from "next/router";
 
 // The handler to smoothly scroll the element into view
 const handExitComplete = () => {
@@ -36,6 +37,7 @@ const handExitComplete = () => {
 };
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter()
   return (
     <ThemeProvider theme={theme}>
       <AnimatePresence exitBeforeEnter onExitComplete={handExitComplete}>
@@ -51,10 +53,18 @@ function MyApp({ Component, pageProps }) {
               gtag('config', 'G-T7D3DX37BF');
             }}
           />
-          <NavBar />
-          <Component {...pageProps}/>
+          {(router.pathname === '/tudo-pronto' ? (
+            <>
+              <Component {...pageProps}/>
+            </>
+          ) : (
+            <>
+              <NavBar />
+              <Component {...pageProps}/>
+              <Footer />
+            </>
+          ))}
           <GlobalStyle />
-          <Footer />
         </ChakraProvider>
       </AnimatePresence>
     </ThemeProvider>

@@ -5,9 +5,7 @@ const themeShema = {
     text: '#2d3748',
     dark_primary: '#3524cf',
     dark_secundary: '#ff4406',
-
     white: '#eaebef',
-
     secundary: {
       "50": "#FFFAF0",
       "100": "#FEEBC8",

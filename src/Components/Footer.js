@@ -16,7 +16,7 @@ import {MoonIcon, SunIcon} from "@chakra-ui/icons";
 export default function Footer() {
   const {colorMode, toggleColorMode} = useColorMode()
   return (
-    <Box as={'footer'} textAlign={"center"} mt={'5rem'} pt={5} pb={5} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
+    <Box as={'footer'} textAlign={"center"} pt={5} pb={5} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
       <Container maxW='container.lg'>
         <Grid templateColumns='repeat(12, 1fr)' gap={6}>
           <GridItem colSpan={[12, 6, 6]} textAlign={'left'}>

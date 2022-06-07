@@ -29,7 +29,7 @@ export default function NavBar() {
                 </NextLink>
               </Box>
               <Box as={'li'}>
-                <NextLink href="#funcionalidades" passHref>
+                <NextLink href="/#funcionalidades" passHref>
                   <a>Funcionalidades</a>
                 </NextLink>
               </Box>
@@ -42,11 +42,13 @@ export default function NavBar() {
           </GridItem>
           <GridItem colSpan={[12, 12, 4]}>
             <Box className={styles.navButton}>
-              <Button variant='ghost' mr={5}>
-                Entrar
-              </Button>
+              <NextLink href="https://web.naweby.com.br/" passHref>
+                <Button id={'bt_entrarNavTop'} variant='ghost' mr={5}>
+                  Entrar
+                </Button>
+              </NextLink>
               <NextLink href="/cadastre-se-gratis" passHref>
-                <Button colorScheme='primary' variant='outline'>
+                <Button id={'bt_RegisterNavTop'} colorScheme='primary' variant='outline'>
                   Cadastre-se Grátis
                 </Button>
               </NextLink>
