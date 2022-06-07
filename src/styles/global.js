@@ -2,8 +2,8 @@ import { createGlobalStyle } from 'styled-components'
 import {useColorModeValue} from "@chakra-ui/react";
 export default createGlobalStyle`
   ::selection {
-    background-color: ${props => props.theme.colors.secundary};
-    color: ${props => props.theme.colors.text};
+    background-color: ${props => props.theme.colors.secundary['500']};
+    color: ${props => props.theme.colors.white};
   }
   *, ::after, ::before {
     box-sizing: border-box;
@@ -17,7 +17,7 @@ export default createGlobalStyle`
     color: ${props => props.theme.colors.text};
     background-color: ${props => props.theme.colors.background};
     a {
-      color: ${props => props.theme.colors.primary};
+      text-decoration: underline;
     }
     p {
       font-size: 18px;
