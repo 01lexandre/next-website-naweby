@@ -17,7 +17,7 @@ import {getError} from "../lib/utils";
 import {useEffect, useRef, useState} from "react";
 import {ViewIcon, ViewOffIcon, Search2Icon} from "@chakra-ui/icons";
 import InputMask from "react-input-mask";
-import {AsyncSelect} from "chakra-react-select";
+import AsyncSelect from 'react-select/async';
 import {useRouter} from "next/router";
 
 function FormRegister () {
@@ -73,21 +73,21 @@ function FormRegister () {
     return errors;
   }
 
-  const fieldsAccount = {
-    document: '',
-    name: '',
-    IE: '',
-    phone: '',
-    email: '',
-    zip_code: '',
-    address: '',
-    number: '',
-    complement: '',
-    district: '',
-    city: '',
-  }
-  const fieldsUser = {email: router.query.mail, name: '', password: '', password_confirmation: '', terms: 1}
-
+  // const fieldsAccount = {
+  //   document: '',
+  //   name: '',
+  //   IE: '',
+  //   phone: '',
+  //   email: '',
+  //   zip_code: '',
+  //   address: '',
+  //   number: '',
+  //   complement: '',
+  //   district: '',
+  //   city: '',
+  // }
+  // const fieldsUser = {email: router.query.mail, name: '', password: '', password_confirmation: '', terms: 1}
+  const citys = []
   const form1 = useRef();
   useEffect(() => {
     form1.current.setFieldValue('email', router.query.mail)
@@ -164,16 +164,35 @@ function FormRegister () {
       label: response.Ender.xMun + ' - ' +  response.Ender.UF,
     }])
   }
-  const searchCity = async (inputValue, callback) => {
-    if (inputValue.length > 3) {
-      const response = await getSearchCidade(inputValue)
-      const op = []
-      response.map(x => {
-        op.push({label:x.name + ' - ' + x.state.data.initials, value: x.id})
-      })
-      callback(op)
-    }
-  }
+
+  // const searchCity = async (inputValue, callback) => {
+  //   console.log(inputValue)
+  //   new Promise ((resolve) => {
+  //     resolve(citys);
+  //   });
+  //   // if (inputValue.length > 3) {
+  //   //   const response = await getSearchCidade(inputValue)
+  //   //   const op = []
+  //   //   response.map(x => {
+  //   //     op.push({label:x.name + ' - ' + x.state.data.initials, value: x.id})
+  //   //   })
+  //   //   callback(op)
+  //   // }
+  // }
+
+  const filterCity = async (inputValue) => {
+    const response = await getSearchCidade(inputValue)
+    const op = []
+    response.map(x => {
+      op.push({label:x.name + ' - ' + x.state.data.initials, value: x.id})
+    })
+    return op;
+  };
+
+  const promiseOptions = (inputValue) =>
+    new Promise((resolve) => {
+      resolve(filterCity(inputValue));
+    });
   const submitAccount = async (values, actions) => {
     try {
       values.document = values.document.replace(/[^\d]+/g, '')
@@ -198,7 +217,7 @@ function FormRegister () {
         <>
           <Formik
             innerRef={form1}
-            initialValues={fieldsUser}
+            initialValues={{email: router.query.mail, name: '', password: '', password_confirmation: '', terms: 1}}
             validate={validateFormUser}
             onSubmit={submitUser}
           >
@@ -279,7 +298,19 @@ function FormRegister () {
       {step === 1 ? (
         <>
           <Formik
-            initialValues={fieldsAccount}
+            initialValues={{
+              document: '',
+              name: '',
+              IE: '',
+              phone: '',
+              email: '',
+              zip_code: '',
+              address: '',
+              number: '',
+              complement: '',
+              district: '',
+              city: '',
+            }}
             validate={validateFormAccount}
             onSubmit={submitAccount}
           >
@@ -409,17 +440,22 @@ function FormRegister () {
                   <GridItem colSpan={[12, 6, 6]}>
                     <Field name='city'>
                       {({field, form}) => (
-                        <FormControl className={styles.fControl} isInvalid={form.errors.city && form.touched.city}>
-                          <FormLabel htmlFor='city'>Cidade</FormLabel>
-                          <AsyncSelect
-                            id={'city'}
-                            {...field}
-                            options={cityOptions}
-                            size="lg"
-                            loadOptions={searchCity}
-                          />
-                          <FormErrorMessage>{form.errors.city}</FormErrorMessage>
-                        </FormControl>
+                        <>
+                          <FormControl className={styles.fControl} isInvalid={form.errors.city && form.touched.city}>
+                            <FormLabel htmlFor='city'>Cidade</FormLabel>
+                            <AsyncSelect
+                              styles='height: 48px;'
+                              className={styles.inputSelect}
+                              {...field}
+                              cacheOptions
+                              defaultOptions={cityOptions}
+                              value={cityOptions.find(x => x.value === field.value)}
+                              loadOptions={promiseOptions}
+                              onChange={option => form.setFieldValue(field.name, option.value)}
+                            />
+                            <FormErrorMessage>{form.errors.city}</FormErrorMessage>
+                          </FormControl>
+                        </>
                       )}
                     </Field>
 
