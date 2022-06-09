@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: http://www.naweby.com.br
+
+# Sitemaps
+Sitemap: http://www.naweby.com.br/sitemap.xml

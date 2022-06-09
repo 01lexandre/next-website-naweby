@@ -84,13 +84,22 @@ export default function Home() {
           images: [
             {
               url: process.env.APP_IMAGE_DESTAQUE,
-              width: 3333,
-              height: 3333,
+              width: 1920,
+              height: 1080,
               alt: process.env.APP_SLOGAN
             },
           ],
         }}
-        twitter={{}}
+        twitter={{
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
       />
       <WebPageJsonLd
         description={process.env.APP_DESCRIPTION}
