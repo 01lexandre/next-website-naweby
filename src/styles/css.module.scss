@@ -70,3 +70,8 @@ $color-dark_primary: #3524cf;
 
   text-align: center;
 }
+.inputSelect > div:first-of-type{
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
