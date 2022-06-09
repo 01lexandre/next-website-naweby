@@ -12,4 +12,16 @@ export default {
     site: '@naweby',
     cardType: 'summary_large_image',
   },
+  facebook:{
+    appId: '872647112866921',
+  },
+  robotsProps: {
+    nosnippet: true,
+    notranslate: true,
+    noimageindex: true,
+    noarchive: true,
+    maxSnippet: -1,
+    maxImagePreview: 'none',
+    maxVideoPreview: -1,
+  }
 };
