@@ -27,7 +27,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    return (<Html lang={process.env.APP_LANG}>
+    return (<Html lang={'pt_BR'}>
         <Head>
           <meta charSet="utf-8"/>
           <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
