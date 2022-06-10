@@ -73,25 +73,7 @@ function FormRegister () {
     return errors;
   }
 
-  // const fieldsAccount = {
-  //   document: '',
-  //   name: '',
-  //   IE: '',
-  //   phone: '',
-  //   email: '',
-  //   zip_code: '',
-  //   address: '',
-  //   number: '',
-  //   complement: '',
-  //   district: '',
-  //   city: '',
-  // }
-  // const fieldsUser = {email: router.query.mail, name: '', password: '', password_confirmation: '', terms: 1}
-  const citys = []
   const form1 = useRef();
-  useEffect(() => {
-    form1.current.setFieldValue('email', router.query.mail)
-  }, [router.query.mail])
 
   function openTooltipDocument () {
     setTooltip(true)
@@ -211,6 +193,34 @@ function FormRegister () {
       })
     }
   }
+
+
+  // console.log('setStepToken', router.query.step)
+  // if (router.query.step) {
+  // }
+  function setStepToken () {
+    if (Number(router.query.step) === 1) {
+      if (router.query.t !== undefined) {
+        setTokenStorage(router.query.t)
+        setStep(1)
+        toast({
+          title: 'Bem vindo de volta.',
+          description: "Continue com seu cadatro.",
+          duration: 9000,
+          isClosable: true,
+        })
+        router.replace(router.route)
+      }
+    }
+  }
+  useEffect(() => {
+    setStepToken()
+  }, [router.query])
+
+  useEffect(() => {
+    form1.current.setFieldValue('email', router.query.mail)
+  }, [router.query.mail])
+
   return (
     <>
       {step === 0 ? (
