@@ -1,4 +1,4 @@
-const API_URL = 'https://api.naweby.com.br/v1/'
+const API_URL = 'https://api-prod.naweby.com.br/v1/'
 import axios from 'axios';
 
 export const getData = obj => obj.data
