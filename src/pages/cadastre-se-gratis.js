@@ -497,7 +497,7 @@ export default function CadastreSeGratis() {
             De especialista para especialista, o sistema de auto peças que você sempre procurou.
           </Text>
           <Text size='lg' mb={7}>
-            Siga o passo a passo abaixo e conhaça:
+            Siga o passo a passo abaixo e conheça:
           </Text>
           <FormRegister />
         </Container>
