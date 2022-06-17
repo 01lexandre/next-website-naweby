@@ -116,9 +116,9 @@ function FormRegister () {
     if (!values.city) {
       errors.city = 'Requerido';
     }
-    if (values.document.length < 18) {
-      errors.document = 'CNPJ incorreto';
-    }
+    // if (values.document.length < 18) {
+    //   errors.document = 'CNPJ incorreto';
+    // }
     // if (values.document.length === 18) {
     //   openTooltipDocument()
     // }
@@ -147,21 +147,6 @@ function FormRegister () {
     }])
   }
 
-  // const searchCity = async (inputValue, callback) => {
-  //   console.log(inputValue)
-  //   new Promise ((resolve) => {
-  //     resolve(citys);
-  //   });
-  //   // if (inputValue.length > 3) {
-  //   //   const response = await getSearchCidade(inputValue)
-  //   //   const op = []
-  //   //   response.map(x => {
-  //   //     op.push({label:x.name + ' - ' + x.state.data.initials, value: x.id})
-  //   //   })
-  //   //   callback(op)
-  //   // }
-  // }
-
   const filterCity = async (inputValue) => {
     const response = await getSearchCidade(inputValue)
     const op = []
@@ -179,6 +164,7 @@ function FormRegister () {
     try {
       values.document = values.document.replace(/[^\d]+/g, '')
       values.phone = values.phone.replace(/[^\d]+/g, '')
+      values.zip_code = values.zip_code.replace(/[^\d]+/g, '')
       const response = await postCreateAccount(values)
       await router.push('/tudo-pronto')
     } catch (e) {
@@ -218,7 +204,7 @@ function FormRegister () {
   }, [router.query])
 
   useEffect(() => {
-    form1.current.setFieldValue('email', router.query.mail)
+    // form1.current.setFieldValue('email', router.query.mail)
   }, [router.query.mail])
 
   return (
