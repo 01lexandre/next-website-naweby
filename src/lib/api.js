@@ -38,7 +38,7 @@ export async function getSearchDocument (document) {
 export async function getSearchCidade (payload) {
   // console.log('qui', localStorage.getItem('NUI'))
   axios.defaults.headers.get['Authorization'] = `Bearer ${localStorage.getItem('NUI')}`
-  const data = await axios.get('https://api.naweby.com.br/v1/geo/cities?search='+payload, {headers} ).then((x) => {
+  const data = await axios.get(API_URL+'geo/cities?search='+payload, {headers} ).then((x) => {
     console.log(x)
     return x.data.data
   })
