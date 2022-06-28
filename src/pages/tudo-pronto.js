@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import logoPrincipal from "../assets/logo-princ.png";
 import Image from "next/image";
 import {useRouter} from "next/router";
+import Script from "next/script";
 
 // tudo-pronto
 export default function TudoPronto() {
