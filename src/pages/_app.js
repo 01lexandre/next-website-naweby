@@ -45,12 +45,15 @@ function MyApp({ Component, pageProps }) {
           <DefaultSeo {...SEO} />
           <Script
             id="google-analytics"
-            src="https://www.googletagmanager.com/gtag/js?id=UA-229188980-1"
+            src="https://www.googletagmanager.com/gtag/js?id=AW-10906653651"
             onLoad={() => {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'UA-229188980-1');
+              gtag('config', 'AW-10906653651');
+              if (router.pathname === '/tudo-pronto') {
+                gtag('event', 'conversion', {'send_to': 'AW-10906653651/OofWCNL_-b8DENOn2dAo'});
+              }
             }}
           />
           {/*<Script*/}

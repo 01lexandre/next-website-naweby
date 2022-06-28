@@ -17,6 +17,7 @@ import {Field, Form, Formik} from "formik";
 import {BrandJsonLd, NextSeo, WebPageJsonLd} from "next-seo";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
+import {useEffect} from "react";
 
 function FormHome() {
   const router = useRouter()
@@ -72,6 +73,9 @@ function FormHome() {
 export default function Home() {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
   // TODO: https://github.com/garmeeh/next-seo
+
+  useEffect(() => {
+  })
   return (
     <>
       <NextSeo
