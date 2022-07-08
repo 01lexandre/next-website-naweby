@@ -56,38 +56,20 @@ function MyApp({ Component, pageProps }) {
               }
             }}
           />
-          {/*<Script*/}
-          {/*  id="crisp-widget"*/}
-          {/*  strategy="afterInteractive"*/}
-          {/*  dangerouslySetInnerHTML={{*/}
-          {/*    __html: `*/}
-          {/*      window.$crisp=[];*/}
-          {/*      window.CRISP_WEBSITE_ID="b7324b94-13ef-446f-8896-4793887ea35f";*/}
-          {/*      (function(){*/}
-          {/*        const d = document;*/}
-          {/*        const s = d.createElement("script");*/}
-          {/*        s.src = "https://client.crisp.chat/l.js";*/}
-          {/*        s.async = 1;*/}
-          {/*        d.getElementsByTagName("head")[0].appendChild(s);*/}
-          {/*      })();`,*/}
-          {/*  }}*/}
-          {/*/>*/}
-          {/*intercom*/}
           <Script
+            id="crisp-widget"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-              window.intercomSettings = {
-                api_base: "https://api-iam.intercom.io",
-                app_id: "sk61703x"
-              };
-              `,
-            }}
-          />
-          <Script
-            dangerouslySetInnerHTML={{
-              __html: `
-              (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/sk61703x';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
-              `,
+                window.$crisp=[];
+                window.CRISP_WEBSITE_ID="b7324b94-13ef-446f-8896-4793887ea35f";
+                (function(){
+                  const d = document;
+                  const s = d.createElement("script");
+                  s.src = "https://client.crisp.chat/l.js";
+                  s.async = 1;
+                  d.getElementsByTagName("head")[0].appendChild(s);
+                })();`,
             }}
           />
           <Script
