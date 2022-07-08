@@ -112,7 +112,7 @@ export default function Home() {
         name={process.env.APP_NAME}
         logo="https://www.example.com/photos/logo.jpg"
       />
-      <main>
+      <Box as={'main'}>
         <Box as={'header'} className={styles.header} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
           <Box as={'section'} pt={'5rem'} textAlign={'center'}>
             <Container maxW='container.sm' textAlign={'center'}>
@@ -170,7 +170,7 @@ export default function Home() {
             </Box>
           </Container>
         </Box>
-      </main>
+      </Box>
     </>
   )
 }
