@@ -1,12 +1,12 @@
 export default function data() {
   return [
     {
-      label: 'Home',
-      link: '/'
-    },
-    {
       label: 'Funcionalidades',
       link: '#funcionalidades'
+    },
+    {
+      label: 'Catálogo de Peças',
+      link: '/catalogo-de-pecas'
     },
     {
       label: 'Blog',

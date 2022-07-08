@@ -1,12 +1,10 @@
 import { ThemeProvider } from 'styled-components'
-import Head from 'next/head'
 
 import GlobalStyle from '../styles/global'
 import themeShema from '../styles/theme'
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
 import {AnimatePresence} from "framer-motion";
 import Script from 'next/script'
-import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
 const theme = extendTheme(themeShema)
 
@@ -14,6 +12,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
 import {useRouter} from "next/router";
 import HeaderNav from "../Components/Header/HeaderNav";
+import NotifyWeb from "../Components/Header/NotifyWeb";
 
 // The handler to smoothly scroll the element into view
 const handExitComplete = () => {
@@ -94,6 +93,7 @@ function MyApp({ Component, pageProps }) {
             </>
           ) : (
             <>
+              <NotifyWeb />
               <HeaderNav/>
               <Component {...pageProps}/>
               <Footer />
