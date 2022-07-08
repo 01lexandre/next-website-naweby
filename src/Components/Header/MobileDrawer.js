@@ -1,10 +1,9 @@
 import { useDisclosure, Flex, Box, Button,  VStack, Icon, HStack, Link as ChakraLink } from "@chakra-ui/react";
 import DrawerExample from './DrawerExample';
-import {  IoMdMenu } from 'react-icons/io';
+import { IoMdMenu } from 'react-icons/io';
 import data from './menu.data';
 import React from "react";
 import NextLink from "next/link";
-import styles from "../../styles/css.module.scss";
 export default function MobileDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
