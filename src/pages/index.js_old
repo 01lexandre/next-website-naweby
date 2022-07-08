@@ -7,6 +7,7 @@ import {
   Heading,
   Text,
   Image,
+  useColorMode,
   useColorModeValue, FormControl, FormLabel, Input, FormErrorMessage
 } from "@chakra-ui/react";
 import theme from '../styles/theme'
@@ -69,7 +70,10 @@ function FormHome() {
   )
 }
 
-function SeoHomePage() {
+export default function Home() {
+  const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
+  useEffect(() => {
+  })
   return (
     <>
       <NextSeo
@@ -106,17 +110,6 @@ function SeoHomePage() {
         name={process.env.APP_NAME}
         logo="https://www.example.com/photos/logo.jpg"
       />
-    </>
-  )
-}
-
-export default function Home() {
-  const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
-  useEffect(() => {
-  })
-  return (
-    <>
-      <SeoHomePage />
       <Box as={'main'}>
         <Box as={'header'} className={styles.header} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
           <Box as={'section'} pt={'5rem'} textAlign={'center'}>
