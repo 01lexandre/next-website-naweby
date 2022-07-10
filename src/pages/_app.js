@@ -1,18 +1,18 @@
 import { ThemeProvider } from 'styled-components'
-import Head from 'next/head'
 
 import GlobalStyle from '../styles/global'
 import themeShema from '../styles/theme'
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
 import {AnimatePresence} from "framer-motion";
 import Script from 'next/script'
-import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
 const theme = extendTheme(themeShema)
 
 import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
 import {useRouter} from "next/router";
+import HeaderNav from "../Components/Header/HeaderNav";
+import NotifyWeb from "../Components/Header/NotifyWeb";
 
 // The handler to smoothly scroll the element into view
 const handExitComplete = () => {
@@ -45,15 +45,12 @@ function MyApp({ Component, pageProps }) {
           <DefaultSeo {...SEO} />
           <Script
             id="google-analytics"
-            src="https://www.googletagmanager.com/gtag/js?id=AW-10906653651"
             onLoad={() => {
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-10906653651');
-              if (router.pathname === '/tudo-pronto') {
-                gtag('event', 'conversion', {'send_to': 'AW-10906653651/OofWCNL_-b8DENOn2dAo'});
-              }
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-MTM3DKX');
             }}
           />
           <Script
@@ -93,7 +90,7 @@ function MyApp({ Component, pageProps }) {
             </>
           ) : (
             <>
-              <NavBar />
+              <HeaderNav/>
               <Component {...pageProps}/>
               <Footer />
             </>
