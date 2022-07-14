@@ -1,8 +1,14 @@
 $color-primary: #6566ff;
 $color-dark_primary: #3524cf;
 
-.notify {
-
+.header {
+  background-color: #F6F5FA;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+.sect {
+  background-repeat: no-repeat;
+  background-position: 10px top;
 }
 .gradient_light {
   background: rgb(246,245,250);

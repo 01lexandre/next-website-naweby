@@ -5,6 +5,7 @@ import Document, {
 import {ServerStyleSheet} from 'styled-components'
 import {ColorModeScript} from '@chakra-ui/react'
 import theme from '../styles/theme'
+import Script from "next/script";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -38,7 +39,8 @@ export default class MyDocument extends Document {
         </Head>
         <body>
         <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTM3DKX" height="0" width="0" style={{display: 'none', visibility: 'hidden'}}></iframe>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTM3DKX" height="0" width="0"
+                  style={{display: 'none', visibility: 'hidden'}}></iframe>
         </noscript>
         <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
         <Main/>

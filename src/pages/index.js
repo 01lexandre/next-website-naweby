@@ -6,17 +6,22 @@ import {
   Flex, Grid, GridItem,
   Heading,
   Text,
-  Image,
   useColorModeValue, FormControl, FormLabel, Input, FormErrorMessage
 } from "@chakra-ui/react";
 import theme from '../styles/theme'
-import ImageHeader from '../assets/dfasda123.png'
-import SlideHero from "../Components/SlideHero";
+import ImageHeader from '../assets/baksistem.png'
+import dotsBack from '../assets/cloud-page_header-dots-a-5673bcc8d50613d4247affb217f73169.svg'
+import dotsLeft from '../assets/left-dot.svg'
 import {Field, Form, Formik} from "formik";
 import {BrandJsonLd, NextSeo, WebPageJsonLd} from "next-seo";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
 import {useEffect} from "react";
+import Image from 'next/image'
+
+import { motion, useAnimation } from "framer-motion";
+
+import { useInView } from "react-intersection-observer";
 
 function FormHome() {
   const router = useRouter()
@@ -114,43 +119,76 @@ export default function Home() {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
   useEffect(() => {
   })
+  // Pixel GIF code adapted from https://stackoverflow.com/a/33919020/266535
+  const keyStr ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+
+  const triplet = (e1, e2, e3) =>
+    keyStr.charAt(e1 >> 2) +
+    keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
+    keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
+    keyStr.charAt(e3 & 63)
+
+  const rgbDataURL = (r, g, b) =>
+    `data:image/gif;base64,R0lGODlhAQABAPAA${
+      triplet(0, r, g) + triplet(b, 255, 255)
+    }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
+  const boxVariant = {
+    visible: { opacity: 1,  transition: { duration: 0.8} },
+    hidden: { opacity: 0, }
+  }
+  const control = useAnimation()
+  const [ref, inView] = useInView()
+  useEffect(() => {
+    if (inView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, inView]);
   return (
     <>
       <SeoHomePage />
-      <Box as={'main'}>
-        <Box as={'header'} className={styles.header} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
-          <Box as={'section'} pt={'5rem'} textAlign={'center'}>
-            <Container maxW='container.sm' textAlign={'center'}>
-              <Heading as='h1' size='2xl'
-                       color={useColorModeValue(theme.colors.primary['700'], theme.colors.primary['100'])}>
-                Seu Sistema de Auto Peças completo e grátis.
-              </Heading>
-              <Text size='lg' mt={7} mb={7}>
-                Gerenciar sua auto peças com segurança nunca esteve tão fácil
-                por meio do gerenciamento prático e enxuto do Naweby.
-              </Text>
-              <NextLink href="/cadastre-se-gratis" passHref>
-                <Button id={'bt_heroTop'} colorScheme='primary'>
-                  Cadastre-se Grátis
-                </Button>
-              </NextLink>
-            </Container>
-            <Image src={ImageHeader} alt='Seu Sistema de Auto Peças completo e grátis.' margin={'0 auto'}/>
+      <Box as={motion.main}
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+      >
+        <Box as={'header'} className={styles.header} backgroundImage={dotsBack}>
+          <Container pt={'5rem'} maxW='container.sm' textAlign={'center'} mb={'5rem'}>
+            <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.primary['700'], theme.colors.primary['100'])}>
+              Seu Sistema de Auto Peças completo e grátis.
+            </Heading>
+            <Text size='lg' mt={7} mb={7}>
+              Gerenciar sua auto peças com segurança nunca esteve tão fácil
+              por meio do gerenciamento prático e enxuto do Naweby.
+            </Text>
+            <NextLink href="/cadastre-se-gratis" passHref>
+              <Button id={'bt_heroTop'} colorScheme='primary' size='lg'>
+                Cadastre-se Grátis
+              </Button>
+            </NextLink>
+          </Container>
+          <Box textAlign={'center'} margin={'0 auto'}>
+            <Image src={ImageHeader} placeholder="blur" blurDataURL={rgbDataURL(61, 61, 194)} width={1069} height={620} alt='Seu Sistema de Auto Peças completo e grátis.'/>
           </Box>
         </Box>
-        <Box as={'section'} pt={'5rem'}>
-          <Container maxW='container.sm' textAlign={'center'}>
-            <Heading as='h2' size='lg'
-                     color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
-              Funcionalidades para micro e pequenas empresas que pensam grande
+        <Box as={'section'} pt={'5rem'} backgroundImage={dotsLeft} className={styles.sect}>
+          <Container maxW='container.sm' textAlign={'center'}
+                     as={motion.main}
+                     ref={ref}
+                     variants={boxVariant}
+                     initial="hidden"
+                     animate={control}
+          >
+            <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
+              Funcionalidades para micro e pequenas empresas que pensam grande.
             </Heading>
             <Text size='lg' mt={2} mb={7}>
               Controle seus pedidos de venda, estoque, financeiro e emissão de notas fiscais
               tudo com muita segurança e otimização do tempo em cada processo.
             </Text>
           </Container>
-          <Container maxW='container.lg'>
-            <SlideHero/>
+          <Container maxW='container.xl'>
+            123
           </Container>
         </Box>
         <Box as={'section'} mb={'5rem'}  pt={'5rem'}>

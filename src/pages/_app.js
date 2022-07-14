@@ -7,7 +7,7 @@ import {AnimatePresence} from "framer-motion";
 import Script from 'next/script'
 import Footer from "../Components/Footer";
 const theme = extendTheme(themeShema)
-
+import NextNProgress from 'nextjs-progressbar';
 import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
 import {useRouter} from "next/router";
@@ -36,7 +36,7 @@ const handExitComplete = () => {
   }
 };
 
-function MyApp({ Component, pageProps }) {
+function Index({ posts, Component, pageProps }) {
   const router = useRouter()
   return (
     <ThemeProvider theme={theme}>
@@ -45,6 +45,7 @@ function MyApp({ Component, pageProps }) {
           <DefaultSeo {...SEO} />
           <Script
             id="google-analytics"
+            strategy="afterInteractive"
             onLoad={() => {
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -90,6 +91,8 @@ function MyApp({ Component, pageProps }) {
             </>
           ) : (
             <>
+              <NextNProgress height={4}/>
+              <NotifyWeb posts={posts}/>
               <HeaderNav/>
               <Component {...pageProps}/>
               <Footer />
@@ -102,4 +105,35 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+Index.getInitialProps = async (ctx) => {
+  let query = `
+    {
+      posts(first: 2) {
+        edges {
+          node {
+            slug
+            title
+          }
+        }
+      }
+    }
+  `
+  let variables = {}
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Headers' : 'Content-Type,Authorization,true'
+  }
+  const res = await fetch('http://cms.naweby.com.br/graphql', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
+  })
+  const json = await res.json()
+  const posts = json.data.posts.edges
+  return { posts: posts }
+}
+
+export default Index
