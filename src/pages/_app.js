@@ -54,22 +54,22 @@ function MyApp({ Component, pageProps }) {
               })(window,document,'script','dataLayer','GTM-MTM3DKX');`,
             }}
           />
-          <Script
-            id="crisp-widget"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.$crisp=[];
-                window.CRISP_WEBSITE_ID="b7324b94-13ef-446f-8896-4793887ea35f";
-                (function(){
-                  const d = document;
-                  const s = d.createElement("script");
-                  s.src = "https://client.crisp.chat/l.js";
-                  s.async = 1;
-                  d.getElementsByTagName("head")[0].appendChild(s);
-                })();`,
-            }}
-          />
+          {/*<Script*/}
+          {/*  id="crisp-widget"*/}
+          {/*  strategy="afterInteractive"*/}
+          {/*  dangerouslySetInnerHTML={{*/}
+          {/*    __html: `*/}
+          {/*      window.$crisp=[];*/}
+          {/*      window.CRISP_WEBSITE_ID="b7324b94-13ef-446f-8896-4793887ea35f";*/}
+          {/*      (function(){*/}
+          {/*        const d = document;*/}
+          {/*        const s = d.createElement("script");*/}
+          {/*        s.src = "https://client.crisp.chat/l.js";*/}
+          {/*        s.async = 1;*/}
+          {/*        d.getElementsByTagName("head")[0].appendChild(s);*/}
+          {/*      })();`,*/}
+          {/*  }}*/}
+          {/*/>*/}
           <Script
             id="hotjar-widget"
             strategy="afterInteractive"

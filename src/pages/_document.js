@@ -43,6 +43,7 @@ export default class MyDocument extends Document {
         <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
         <Main/>
         <NextScript/>
+        <script src="//code.tidio.co/sqal2httpontibkwvzkmuy1mfme2io3b.js" async></script>
         </body>
       </Html>
     )
