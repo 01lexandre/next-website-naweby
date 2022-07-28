@@ -52,3 +52,26 @@ export async function setTokenStorage(payload) {
 export async function getTokenStorage() {
   return localStorage.getItem('NUI');
 }
+
+export async function getPostsBlog() {
+  try {
+    let query = `
+    {
+      posts(first: 2) {
+        edges {
+          node {
+            slug
+            title
+          }
+        }
+      }
+    }
+  `
+    let variables = {}
+    const data = await axios.post('https://cms.naweby.com.br/graphql', { query, variables}).then(getData)
+    return data.data.posts.edges
+  } catch (e) {
+    console.log('error', e)
+  }
+  // return data
+}

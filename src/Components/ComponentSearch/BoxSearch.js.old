@@ -1,0 +1,329 @@
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Grid,
+  GridItem,
+  HStack,
+  Input
+} from "@chakra-ui/react";
+import {Field, Form, Formik, useField, useFormik, useFormikContext} from "formik";
+import styles from "../../styles/css.module.scss";
+import theme from "../../styles/theme";
+import {useEffect, useRef, useState} from "react";
+import AsyncSelect from "react-select/async";
+import {searchAplicacao, searchCategoria, searchGrupo, searchMontadora} from "../../lib/api-consulta-pecas";
+import React from 'react';
+import AirbnbCard from "./BoxAplicacao";
+
+
+const makeOpSelectSync = (array) => {
+  const op = []
+  array.map(x => {
+    op.push({
+      label:x.nome.replace(/^\w/, (c) => c.toUpperCase()),
+      value: x.id,
+      ...x
+    })
+  })
+  return op;
+}
+
+// const FieldSearchAplicacao = (props) => {
+//   const [showApli, setShowApli] = useState(false);
+//   const [AplicacaoOptions, setAplicacaoOptions] = useState([])
+//   const {
+//     values: { montadoraID, gruposID, categoriasID, aplicacaoID },
+//     touched,
+//     setFieldValue,
+//   } = useFormikContext();
+//   const [field, meta] = useField(props);
+//   const filterAplicacao2 = async (stringSearch) => {
+//     if (stringSearch.length >= 2) {
+//       // let stringSeart = `montadoras/${montadoraID}/grupos/${gruposID}/categorias/${categoriasID}/aplicacoes`
+//       let stringSeart = `grupos/${gruposID}/categorias/${categoriasID}/aplicacoes`
+//       // console.log(stringSeart+'?search='+stringSearch)
+//       const response = await searchAplicacao(stringSeart+'?search='+stringSearch)
+//       console.log(makeOpSelectSync(response))
+//       setAplicacaoOptions([])
+//       const re = makeOpSelectSync(response)
+//       setAplicacaoOptions(re)
+//     }
+//   };
+//
+//   React.useEffect(() => {
+//     if (
+//       montadoraID !== '' &&
+//       gruposID !== '' &&
+//       categoriasID !== ''
+//     ) {
+//       console.clear()
+//       setShowApli(true)
+//       // // let stringSeart = `grupos/${gruposID}/categorias/${categoriasID}/aplicacoes`
+//       // let stringSeart = `montadoras/${montadoraID}/grupos/${gruposID}/categorias/${categoriasID}/aplicacoes`
+//       // if (aplicacaoID !== '' && aplicacaoID !== undefined && aplicacaoID !== null) {
+//       //   stringSeart = stringSeart+'?search='+aplicacaoID
+//       // }
+//       // console.log('aqui')
+//       // filterAplicacao(stringSeart).then(r => {
+//       //   setShowApli(true)
+//       // })
+//       // console.log(stringSeart)
+//     } else {
+//       setShowApli(false)
+//     }
+//   }, [montadoraID, gruposID, categoriasID, aplicacaoID, touched.montadoraID, touched.gruposID, touched.categoriasID, touched.aplicacaoID, setFieldValue, props.name]);
+//
+//   const formatOptionLabel = ({ value, label, modelo, motor, anoIniS, anoFimS }) => (
+//     <Flex justifyContent={'space-between'} alignItems={'center'}>
+//       <strong>{label} - {modelo} {motor}</strong>
+//       <Box display='flex' alignItems='baseline'>
+//         <Box
+//           fontWeight='semibold'
+//           letterSpacing='wide'
+//           fontSize='xs'
+//           textTransform='uppercase'
+//         >
+//           {(anoIniS) ? anoIniS : '~'} &bull; {(anoFimS) ? anoFimS : '~'}
+//         </Box>
+//       </Box>
+//     </Flex>
+//   );
+//   return (
+//     <Box>
+//       {(showApli) ? (
+//         <>
+//           <FormControl className={styles.fControl}>
+//             <FormLabel htmlFor='aplicacaoID'>aplicacaoID</FormLabel>
+//             <AsyncSelect
+//               name={'aplicacaoID'}
+//               id={'aplicacaoID'}
+//               styles='height: 48px;'
+//               isClearable={true}
+//               noOptionsMessage={() => 'Pesquise uma Aplicação'}
+//               loadingMessage={() => 'Pesquisando...'}
+//               placeholder={''}
+//               className={styles.inputSelect}
+//               defaultOptions={AplicacaoOptions}
+//               value={AplicacaoOptions.find(x => x.value === field.value)}
+//               loadOptions={filterAplicacao2}
+//               formatOptionLabel={formatOptionLabel}
+//             />
+//           </FormControl>
+//         </>
+//       ):''}
+//     </Box>
+//   );
+// };
+
+export default function BoxSearch() {
+  // const {
+  //   values: { montadoraID, gruposID, categoriasID, aplicacaoID },
+  //   touched,
+  //   setFieldValue,
+  // } = useFormikContext();
+  const formRule = {montadoraID: '', gruposID: '', categoriasID: '', aplicacaoID: ''}
+
+  const formik = useFormik({
+    initialValues: formRule
+  });
+console.log(formik)
+
+  const [showApli, setShowApli] = useState(false);
+  const [MontadoraOptions, setMontadoraOptions] = useState([])
+  const [GrupoOptions, setGrupoOptions] = useState([])
+  const [CategoriaOptions, setCategoriaOptions] = useState([])
+
+  // React.useEffect(() => {
+  //   console.log(touched)
+  //   if (
+  //     montadoraID !== '' &&
+  //     gruposID !== '' &&
+  //     categoriasID !== ''
+  //   ) {
+  //     console.clear()
+  //     setShowApli(true)
+  //   } else {
+  //     setShowApli(false)
+  //   }
+  // }, [montadoraID, gruposID, categoriasID, aplicacaoID, touched.montadoraID, touched.gruposID, touched.categoriasID, touched.aplicacaoID, setFieldValue, props.name]);
+
+  const filterMontadora = async (inputValue) => {
+    const response = await searchMontadora(inputValue)
+    return makeOpSelectSync(response)
+  };
+  const filterGrupo = async (inputValue) => {
+    const response = await searchGrupo(inputValue)
+    return makeOpSelectSync(response)
+  };
+  const filterCategoria = async (inputValue) => {
+    const response = await searchCategoria(inputValue)
+    return makeOpSelectSync(response)
+  };
+
+
+  // const form1 = useRef();
+  // const validateFormUser = (values) => {}
+  // const submitUser = (values, actions) => {
+  //   console.log(values)
+  //   setTimeout(() => {
+  //     actions.setSubmitting(false)
+  //   }, 1000)
+  // }
+  return (
+    <Box className={styles.BoxSearch}>
+      <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="email">Email Address</label>
+        <input
+          id="montadoraID"
+          name="montadoraID"
+          type="email"
+          onChange={formik.handleChange}
+          value={formik.values.montadoraID}
+        />
+
+        <button type="submit">Submit</button>
+      </form>
+      <Formik
+        initialValues={formRule}
+        onSubmit={async (values) => alert(JSON.stringify(values, null, 2))}
+      >
+        {(props) => (
+          <Form>
+            <Grid templateColumns='repeat(12, 1fr)' gap={6}>
+              <GridItem colSpan={[12, 12, 4]}>
+                <Field name='montadoraID'>
+                  {({field, form}) => (
+                    <>
+                      <FormControl className={styles.fControl} isInvalid={form.errors.montadoraID && form.touched.montadoraID}>
+                        <FormLabel htmlFor='montadoraID'>Montadora</FormLabel>
+                        <AsyncSelect
+                          name={'montadoraID'}
+                          id={'montadoraID'}
+                          styles='height: 48px;'
+                          isClearable={true}
+                          noOptionsMessage={() => 'Pesquise uma Montadora'}
+                          loadingMessage={() => 'Pesquisando...'}
+                          placeholder={''}
+                          className={styles.inputSelect}
+                          {...field}
+                          cacheOptions
+                          defaultOptions={MontadoraOptions}
+                          value={MontadoraOptions.find(x => x.value === field.value)}
+                          loadOptions={filterMontadora}
+                          onChange={option => form.setFieldValue(field.name, (option === null) ? '' : option.value)}
+                        />
+                        <FormErrorMessage>{form.errors.montadoraID}</FormErrorMessage>
+                      </FormControl>
+                    </>
+                  )}
+                </Field>
+              </GridItem>
+              <GridItem colSpan={[12, 12, 4]}>
+                <Field name='gruposID'>
+                  {({field, form}) => (
+                    <>
+                      <FormControl className={styles.fControl} isInvalid={form.errors[field.name] && form.touched[field.name]}>
+                        <FormLabel htmlFor={field.name}>Grupo</FormLabel>
+                        <AsyncSelect
+                          name={'gruposID'}
+                          id={'gruposID'}
+                          styles='height: 48px;'
+                          noOptionsMessage={() => 'Pesquise um Grupo'}
+                          loadingMessage={() => 'Pesquisando...'}
+                          placeholder={''}
+                          className={styles.inputSelect}
+                          {...field}
+                          cacheOptions
+                          defaultOptions={GrupoOptions}
+                          value={GrupoOptions.find(x => x.value === field.value)}
+                          loadOptions={filterGrupo}
+                          isClearable={true}
+                          onChange={option => form.setFieldValue(field.name, (option === null) ? '' : option.value)}
+                        />
+                        <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage>
+                      </FormControl>
+                    </>
+                  )}
+                </Field>
+              </GridItem>
+              <GridItem colSpan={[12, 12, 4]}>
+                <Field name='categoriasID'>
+                  {({field, form}) => (
+                    <>
+                      <FormControl className={styles.fControl} isInvalid={form.errors[field.name] && form.touched[field.name]}>
+                        <FormLabel htmlFor={field.name}>Categoria</FormLabel>
+                        <AsyncSelect
+                          name={'categoriasID'}
+                          id={'categoriasID'}
+                          styles='height: 48px;'
+                          noOptionsMessage={() => 'Pesquise uma Categoria'}
+                          loadingMessage={() => 'Pesquisando...'}
+                          placeholder={''}
+                          className={styles.inputSelect}
+                          {...field}
+                          cacheOptions
+                          defaultOptions={CategoriaOptions}
+                          value={CategoriaOptions.find(x => x.value === field.value)}
+                          loadOptions={filterCategoria}
+                          isClearable={true}
+                          onChange={option => form.setFieldValue(field.name, (option === null) ? '' : option.value)}
+                        />
+                        <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage>
+                      </FormControl>
+                    </>
+                  )}
+                </Field>
+              </GridItem>
+            </Grid>
+            aqui <br/>
+            <Field name='aplicacaoID'>
+              {({field, form}) => (
+                <>
+                  <FormControl className={styles.fControl} isInvalid={form.errors[field.name] && form.touched[field.name]}>
+                    <FormLabel htmlFor={field.name}>aplicação</FormLabel>
+                    <AsyncSelect
+                      name={'aplicacaoID'}
+                      id={'aplicacaoID'}
+                      styles='height: 48px;'
+                      noOptionsMessage={() => 'Pesquise uma Aplicação'}
+                      loadingMessage={() => 'Pesquisando...'}
+                      placeholder={''}
+                      className={styles.inputSelect}
+                      {...field}
+                      cacheOptions
+                      defaultOptions={CategoriaOptions}
+                      value={CategoriaOptions.find(x => x.value === field.value)}
+                      loadOptions={filterCategoria}
+                      isClearable={true}
+                      onChange={option => form.setFieldValue(field.name, (option === null) ? '' : option.value)}
+                    />
+                    <FormErrorMessage>{form.errors[field.name]}</FormErrorMessage>
+                  </FormControl>
+                </>
+              )}
+            </Field>
+            {/*<label>*/}
+            {/*  <FieldSearchAplicacao name="aplicacaoID" />*/}
+            {/*</label>*/}
+
+            <Button
+              id={'bt_footerAction'}
+              mt={3}
+              borderRadius={41}
+              w={'100%'}
+              colorScheme='secundary'
+              isLoading={props.isSubmitting}
+              type='submit'
+            >
+              Cadastre-se agora.
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </Box>
+  )
+}

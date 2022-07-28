@@ -6,7 +6,13 @@ const withImages = require('next-images')
 module.exports = withImages({
   esModule: true,
   images: {
-    disableStaticImages: true
+    disableStaticImages: true,
+    domains: ['s3.amazonaws.com'],
+  },
+  experimental: {
+    images: {
+      unoptimized: true,
+    },
   },
   env: {
     APP_NAME: 'Naweby',

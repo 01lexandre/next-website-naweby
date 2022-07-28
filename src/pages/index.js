@@ -6,12 +6,15 @@ import {
   Flex, Grid, GridItem,
   Heading,
   Text,
+  Highlight,
   useColorModeValue, FormControl, FormLabel, Input, FormErrorMessage
 } from "@chakra-ui/react";
 import theme from '../styles/theme'
 import ImageHeader from '../assets/baksistem.png'
 import dotsBack from '../assets/cloud-page_header-dots-a-5673bcc8d50613d4247affb217f73169.svg'
 import dotsLeft from '../assets/left-dot.svg'
+import imageDe123 from '../assets/imageDe123.png'
+import bgMarca from '../assets/bg-marca.png'
 import {Field, Form, Formik} from "formik";
 import {BrandJsonLd, NextSeo, WebPageJsonLd} from "next-seo";
 import NextLink from "next/link";
@@ -22,6 +25,8 @@ import Image from 'next/image'
 import { motion, useAnimation } from "framer-motion";
 
 import { useInView } from "react-intersection-observer";
+import {ArrowForwardIcon} from "@chakra-ui/icons";
+import {setRGBDataURL} from "../lib/utils";
 
 function FormHome() {
   const router = useRouter()
@@ -119,19 +124,7 @@ export default function Home() {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
   useEffect(() => {
   })
-  // Pixel GIF code adapted from https://stackoverflow.com/a/33919020/266535
-  const keyStr ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 
-  const triplet = (e1, e2, e3) =>
-    keyStr.charAt(e1 >> 2) +
-    keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
-    keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
-    keyStr.charAt(e3 & 63)
-
-  const rgbDataURL = (r, g, b) =>
-    `data:image/gif;base64,R0lGODlhAQABAPAA${
-      triplet(0, r, g) + triplet(b, 255, 255)
-    }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
   const boxVariant = {
     visible: { opacity: 1,  transition: { duration: 0.8} },
     hidden: { opacity: 0, }
@@ -168,49 +161,85 @@ export default function Home() {
             </NextLink>
           </Container>
           <Box textAlign={'center'} margin={'0 auto'}>
-            <Image src={ImageHeader} placeholder="blur" blurDataURL={rgbDataURL(61, 61, 194)} width={1069} height={620} alt='Seu Sistema de Auto Peças completo e grátis.'/>
+            <Image src={ImageHeader} placeholder="blur" blurDataURL={setRGBDataURL(61, 61, 194)} width={1069} height={620} alt='Seu Sistema de Auto Peças completo e grátis.'/>
           </Box>
         </Box>
-        <Box as={'section'} pt={'5rem'} backgroundImage={dotsLeft} className={styles.sect}>
-          <Container maxW='container.sm' textAlign={'center'}
-                     as={motion.main}
+
+        <Container pt={'5rem'} maxW='container.sm' textAlign={'center'} >
+          <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
+            Funcionalidades para micro e pequenas empresas que pensam grande.
+          </Heading>
+          <Text size='lg' mt={2} mb={7}>
+            Controle seus pedidos de venda, estoque, financeiro e emissão de notas fiscais
+            tudo com muita segurança e otimização do tempo em cada processo.
+          </Text>
+        </Container>
+
+        <Box as={'section'} mb={'5rem'}  pt={'5rem'}>
+          <Container maxW='container.lg'>
+            <Box textAlign={'center'} bg={bgAction} backgroundPosition={'center'} backgroundRepeat={'no-repeat'} p={6} borderRadius={16}>
+              <Container>
+                <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                  <Heading as='h3' size='lg' color={useColorModeValue('#fff', theme.colors.text)}>
+                    Conheça Catálogo de peças online.
+                  </Heading>
+                  <Text size='lg' mt={3} mb={3} color={useColorModeValue('#fff', theme.colors.text)}>
+                    Donec vulputate, mauris eget scelerisque aliquet, augue elit varius ipsum, nec fermentum sapien ex nec lacus.
+                  </Text>
+                  <NextLink href="/catalogo-de-pecas" passHref>
+                    <Button id={'linkCatalogo'} colorScheme='gray' size='lg' rightIcon={<ArrowForwardIcon />}>
+                      Pesquisa de peças aqui
+                    </Button>
+                  </NextLink>
+                </Flex>
+              </Container>
+            </Box>
+          </Container>
+        </Box>
+
+        <Box as={'section'} pt={'5rem'} pb={'5rem'} backgroundImage={dotsLeft} className={styles.sect}>
+          <Container maxW='container.lg' as={motion.main}
                      ref={ref}
                      variants={boxVariant}
                      initial="hidden"
-                     animate={control}
-          >
-            <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
-              Funcionalidades para micro e pequenas empresas que pensam grande.
-            </Heading>
-            <Text size='lg' mt={2} mb={7}>
-              Controle seus pedidos de venda, estoque, financeiro e emissão de notas fiscais
-              tudo com muita segurança e otimização do tempo em cada processo.
-            </Text>
-          </Container>
-          <Container maxW='container.xl'>
-            123
-          </Container>
-        </Box>
-        <Box as={'section'} mb={'5rem'}  pt={'5rem'}>
-          <Container maxW='container.lg'>
-            <Box bg={bgAction} color={useColorModeValue('#fff', theme.colors.text)} p={6} borderRadius={16}>
-              <Grid templateColumns='repeat(5, 1fr)' gap={6}>
-                <GridItem colSpan={[5, 5, 3]}>
-                  <Heading as='h3' size='lg'>
-                    Experimente e use gratuitamente o sistema perfeito para sua auto peças.
+                     animate={control}>
+            <Grid templateColumns='repeat(12, 1fr)' gap={6}>
+              <GridItem colSpan={[12, 12, 6]}>
+                <Box backgroundPosition={'center top'} backgroundImage={imageDe123} backgroundSize={'cover'} backgroundRepeat={'no-repeat'} minH='sm' borderRadius='lg' overflow='hidden'>
+                </Box>
+              </GridItem>
+              <GridItem colSpan={[12, 12, 6]}>
+                <Box minH='sm' borderRadius='lg' p={5} overflow='hidden' bg={useColorModeValue('#F6F5FA', theme.colors.primary['100'])}>
+                  <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
+                    Cadastro de produtos completo.
                   </Heading>
-                  <Text size='lg' mt={3} mb={3}>
-                    Se você deseja um sistema online para auto peças que simplesmente faça o que você precisa, sem muita dificuldade e que seja fácil de usar,
-                    o Naweby é o programa mais preparado para te atender agora!
+                  <Text size='lg' mt={2} mb={7}>
+                    Donec vulputate, mauris eget scelerisque aliquet, augue elit varius ipsum, nec fermentum sapien ex nec lacus. Etiam sit amet maximus diam. Proin nulla dolor, auctor id magna quis, vulputate malesuada felis Donec vulputate, mauris eget scelerisque aliquet, augue elit varius ipsum, nec fermentum sapien ex nec lacus. Etiam sit amet maximus diam. Proin nulla dolor, auctor id magna quis, vulputate malesuada felis.
                   </Text>
-                </GridItem>
-                <GridItem colSpan={[5, 5, 2]}>
-                  <Flex justifyContent={'center'} alignItems={'center'} h={'100%'}>
-                    <FormHome/>
-                  </Flex>
-                </GridItem>
-              </Grid>
-            </Box>
+                </Box>
+              </GridItem>
+              <GridItem colSpan={[12, 12, 6]}>
+                <Box minH='sm' borderRadius='lg' p={5} overflow='hidden' bg={useColorModeValue('#F6F5FA', theme.colors.primary['100'])}>
+                  <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
+                    Emissão de nota fiscal em poucos cliques.
+                  </Heading>
+                  <Text size='lg' mt={2} mb={7}>
+                    Tudo aqui foi desenhado para sua equipe encontrar facilidade na hora de usar e agilizar o processo de vendas, livre-se da burocracia e da complexidade na hora de emitir nota fiscal e enviá-la ao seu cliente.
+                    Apesar de vivermos no país com o sistema tributário mais complexo do mundo, isso não significa que você precisa sofrer na hora da emissão, até porque já simplificamos tudo isso no Naweby.
+                  </Text>
+                </Box>
+              </GridItem>
+              <GridItem colSpan={[12, 12, 6]}>
+                <Box minH='sm' borderRadius='lg' p={5} overflow='hidden' bg={useColorModeValue('#F6F5FA', theme.colors.primary['100'])}>
+                  <Heading as='h2' size='lg' color={useColorModeValue(theme.colors.primary['500'], theme.colors.primary['100'])}>
+                    Você está seguro conosco.
+                  </Heading>
+                  <Text size='lg' mt={2} mb={7}>
+                    Garantimos a privacidade e integridade dos dados transitados pelo sistema, sem dores de cabeça com perca de dados e sem custo de implantação.
+                  </Text>
+                </Box>
+              </GridItem>
+            </Grid>
           </Container>
         </Box>
       </Box>

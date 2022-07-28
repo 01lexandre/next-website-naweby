@@ -1,5 +1,4 @@
 import { ThemeProvider } from 'styled-components'
-
 import GlobalStyle from '../styles/global'
 import themeShema from '../styles/theme'
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
@@ -13,7 +12,6 @@ import SEO from '../../next-seo.config';
 import {useRouter} from "next/router";
 import HeaderNav from "../Components/Header/HeaderNav";
 import NotifyWeb from "../Components/Header/NotifyWeb";
-
 // The handler to smoothly scroll the element into view
 const handExitComplete = () => {
   if (typeof window !== 'undefined') {
@@ -35,6 +33,9 @@ const handExitComplete = () => {
     }
   }
 };
+import AppContext from "../../AppContext";
+import NextApp from 'next/app';
+import {getPostsBlog} from "../lib/api";
 
 function Index({ posts, Component, pageProps }) {
   const router = useRouter()
@@ -46,12 +47,13 @@ function Index({ posts, Component, pageProps }) {
           <Script
             id="google-analytics"
             strategy="afterInteractive"
-            onLoad={() => {
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-MTM3DKX');
+              })(window,document,'script','dataLayer','GTM-MTM3DKX');`,
             }}
           />
           <Script
@@ -85,19 +87,28 @@ function Index({ posts, Component, pageProps }) {
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
             }}
           />
-          {(router.pathname === '/tudo-pronto' ? (
-            <>
-              <Component {...pageProps}/>
-            </>
-          ) : (
-            <>
-              <NextNProgress height={4}/>
-              <NotifyWeb posts={posts}/>
-              <HeaderNav/>
-              <Component {...pageProps}/>
-              <Footer />
-            </>
-          ))}
+          <AppContext.Provider
+            value={{
+              state: {
+                languages: 'en',
+                posts
+              },
+            }}
+          >
+            {(router.pathname === '/tudo-pronto' ? (
+              <>
+                <Component {...pageProps}/>
+              </>
+            ) : (
+              <>
+                <NextNProgress height={4}/>
+                <NotifyWeb posts={posts}/>
+                <HeaderNav/>
+                <Component {...pageProps}/>
+                <Footer />
+              </>
+            ))}
+          </AppContext.Provider>
           <GlobalStyle />
         </ChakraProvider>
       </AnimatePresence>
@@ -105,35 +116,42 @@ function Index({ posts, Component, pageProps }) {
   )
 }
 
-Index.getInitialProps = async (ctx) => {
-  let query = `
-    {
-      posts(first: 2) {
-        edges {
-          node {
-            slug
-            title
-          }
-        }
-      }
-    }
-  `
-  let variables = {}
-  const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Headers' : 'Content-Type,Authorization,true'
+Index.getInitialProps = async (appContext) => {
+  const appProps = await NextApp.getInitialProps(appContext);
+  // let query = `
+  //   {
+  //     posts(first: 2) {
+  //       edges {
+  //         node {
+  //           slug
+  //           title
+  //         }
+  //       }
+  //     }
+  //   }
+  // `
+  // let variables = {}
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  //   'Access-Control-Allow-Headers' : 'Content-Type,Authorization,true'
+  // }
+  // const res = await fetch('http://cms.naweby.com.br/graphql', {
+  //   method: 'POST',
+  //   headers,
+  //   body: JSON.stringify({
+  //     query,
+  //     variables,
+  //   }),
+  // })
+  // const json = await res.json()
+  // const posts = json.data.posts.edges
+  // const posts = {}
+  const posts = await getPostsBlog()
+  return {
+    ...appProps,
+    posts: posts,
+    revalidate: 1,
   }
-  const res = await fetch('http://cms.naweby.com.br/graphql', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
-  const json = await res.json()
-  const posts = json.data.posts.edges
-  return { posts: posts }
 }
 
 export default Index

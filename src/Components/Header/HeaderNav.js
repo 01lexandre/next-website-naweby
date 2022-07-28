@@ -23,7 +23,11 @@ export default function HeaderNav() {
                initial={{y: -100}}
                transition={{ duration: 0.5 }} maxW='container.xl' id="header" bg={useColorModeValue('#FFFFF', 'gray.900')} pt={3} pb={3}>
       <Flex w="100%" align="center">
-        <Image width={225} height={'60px'} src={logoPrincipal} alt='Logo Naweby'/>
+        <NextLink href={'/'} passHref>
+          <a>
+            <Image width={225} height={'60px'} src={logoPrincipal} alt='Logo Naweby'/>
+          </a>
+        </NextLink>
         <HStack as="nav" spacing="1" display={{ base: "none", md: "flex" }}>
           {data().map((item, i) => (
             <NextLink key={i} href={item.link} passHref>

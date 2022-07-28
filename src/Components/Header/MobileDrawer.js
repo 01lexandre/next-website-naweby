@@ -5,14 +5,13 @@ import data from './menu.data';
 import React from "react";
 import NextLink from "next/link";
 export default function MobileDrawer() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef();
   return (
     <Flex display={{ base: "flex", md: "none" }}>
       <Button ref={btnRef} onClick={onOpen}>
         <IoMdMenu size="26px" />
       </Button>
-
       <DrawerExample
         isOpen={isOpen}
         onClose={onClose}
