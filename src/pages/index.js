@@ -122,8 +122,6 @@ function SeoHomePage() {
 
 export default function Home() {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
-  useEffect(() => {
-  })
 
   const boxVariant = {
     visible: { opacity: 1,  transition: { duration: 0.8} },
@@ -141,10 +139,7 @@ export default function Home() {
   return (
     <>
       <SeoHomePage />
-      <Box as={motion.main}
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-      >
+      <Box as={motion.main} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Box as={'header'} className={styles.header} backgroundImage={dotsBack}>
           <Container pt={'5rem'} maxW='container.sm' textAlign={'center'} mb={'5rem'}>
             <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.primary['700'], theme.colors.primary['100'])}>

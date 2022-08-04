@@ -2,7 +2,7 @@ export default function data() {
   return [
     {
       label: 'Funcionalidades',
-      link: '#funcionalidades'
+      link: '/'
     },
     {
       label: 'Catálogo de Peças',

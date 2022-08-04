@@ -8,7 +8,7 @@ import {
   Grid,
   GridItem,
   HStack,
-  Input, Skeleton
+  Input, Skeleton, useToast
 } from "@chakra-ui/react";
 import {Field, Form, Formik, useField, useFormik, useFormikContext} from "formik";
 import styles from "../../styles/css.module.scss";
@@ -41,6 +41,7 @@ const makeOpSelectSync = (array) => {
 }
 export default function BoxSearch() {
   const formRule = {montadoraID: '', gruposID: '', categoriasID: '', aplicacaoID: ''}
+  const toast = useToast()
 
   const [listProdutos, setlistProdutos] = useState([])
 
@@ -74,6 +75,7 @@ export default function BoxSearch() {
   const [categoriaStringSearch, setCategoriaStringSearch] = useState('')
 
   const [AplicacaoOptions, setAplicacaoOptions] = useState([])
+  const [AplicacaoNoOption, setAplicacaoNoOption] = useState('Pesquise uma Aplicação')
 
   React.useEffect(() => {
     // console.log(formik, 'aquiiiuiii')
@@ -103,12 +105,31 @@ export default function BoxSearch() {
     return makeOpSelectSync(response)
   };
   const filterAplicacao2 = async (stringSearch) => {
+    console.log('filterAplicacao2')
     if (stringSearch.length >= 2) {
       // let stringSeart = `montadoras/${montadoraID}/grupos/${gruposID}/categorias/${categoriasID}/aplicacoes`
-      let stringSeart = `grupos/${formik.values.gruposID}/categorias/${formik.values.categoriasID}/aplicacoes`
-      const response = await searchAplicacao(stringSeart+'?search='+stringSearch)
-      console.log(makeOpSelectSync(response))
-      return makeOpSelectSync(response)
+      try {
+        let stringSeart = `grupos/${formik.values.gruposID}/categorias/${formik.values.categoriasID}/aplicacoes`
+        const response = await searchAplicacao(stringSeart+'?search='+stringSearch)
+        console.log(response)
+        if (response === null) {
+          toast({
+            title: `Não foi encontrado nenhuma aplicação`,
+            status: 'warning',
+            isClosable: true,
+          })
+          setAplicacaoNoOption('Não foi encontrado essa aplicação')
+          setTimeout(() => {
+            setAplicacaoNoOption('Pesquise uma Aplicação')
+          }, 4000)
+          return []
+        } else {
+          return makeOpSelectSync(response)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+      // return makeOpSelectSync(response)
     }
   };
   const changeSelect = (option, name) => {
@@ -127,7 +148,6 @@ export default function BoxSearch() {
         setGrupoDisabled(true)
         setCategoriaDisabled(true)
         setGrupoStringSearch('')
-        formik.setFieldValue('gruposID', 'testeee')
       }
     }
     formik.setFieldValue(name, (option === null) ? '' : option.value)
@@ -228,7 +248,7 @@ export default function BoxSearch() {
                   id={'aplicacaoID'}
                   styles='height: 48px;'
                   isClearable={true}
-                  noOptionsMessage={() => 'Pesquise uma Aplicação'}
+                  noOptionsMessage={() => AplicacaoNoOption}
                   loadingMessage={() => 'Pesquisando...'}
                   placeholder={''}
                   className={styles.inputSelect}
