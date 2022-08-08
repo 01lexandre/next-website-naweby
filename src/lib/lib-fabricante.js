@@ -1,4 +1,4 @@
-const array = [
+const arrayFabricantes = [
   {
     "fantasia": "Nakata",
     "slug": "nakata",
@@ -31,7 +31,7 @@ const array = [
     "endereco": "Guarulhos - SP",
     "logo": "https:\/\/www.tecfil.com.br\/wp-content\/themes\/tecfill_theme\/img\/logo.svg",
     "slogan": "Originalmente Líder",
-    "facebook": "https:\/\/www.facebook.com\/tecfil.filtros,\n\n\n",
+    "facebook": "https:\/\/www.facebook.com\/tecfil.filtros",
     "instagran": "https:\/\/www.instagram.com\/tecfil\/",
     "youtube": "http:\/\/www.youtube.com\/user\/tecfilfiltros",
     "twitter": "https:\/\/twitter.com\/filtrostecfil",
@@ -105,7 +105,7 @@ const array = [
     "downloaddecatalogo": "https:\/\/baixecatalogo.com.br\/catalogo\/sampel-e-samkit",
     "telefone": "(11) 4646-8100",
     "email": "sac@sampel.com.br",
-    "faleconosco": 800191404,
+    "faleconosco": '800191404',
     "quemsomos": "Quem Somos\nO Grupo Estevão Caputto é reconhecido pela excelência dos seus produtos. Uma das marcas que compõe o grupo é a Sampel, que tem grande reconhecimento no setor automotivo. É uma empresa brasileira que fabrica componentes de metal\/borracha como: Bandejas, Buchas de Suspensão, Suportes de Amortecedor,Suportes de Câmbio,Suportes de Motor e Kits para Suspensão com tecnologia de ponta e profissionais altamente capacitados. A marca atende rigorosos padrões de qualidade exigidos pelas principais montadoras e sistemistas do mundo.\n\n| Comercial\nAlém de suas grandes parcerias no mercado nacional, a Sampel exporta para Ásia, África, Europa, América do Norte, América Central e América do Sul. A Sampel está preparada para atender às novas demandas do mercado com um sistema logístico eficiente que garante estoque balanceado para atender com rapidez aos nossos clientes.\n\n| Diferenciais\n▪ Certificação nas Normas ISO9001-Qualidade \/ IATF16949-Automotiva;\n▪ Buscando a Conformidade com a Gestão Ambiental conforme a ISO14001;\n▪ Catálogo com mais de 2.700, itens e 7.500 aplicações;\n▪ 100% de borracha natural com grande poder na durabilidade;\n▪ Produtos com alta qualidade;\n▪ Tecnologia avançada;\n▪ Laboratórios de pesquisas (químico e dinâmico);\n▪ Fornecemos às indústrias, montadoras e aos sistemistas;\n▪ Exportamos para diversos países;\n▪ Atuação do SAC em conjunto com a Engenharia do Produto;\n▪ Empresa genuinamente brasileira;\n▪ Desde 1961 – Fabricante componentes metal\/borracha para suspensão automotiva;\n▪ Sampel: Qualidade e segurança que você pode confiar.",
     "linhadeprodutos": "Bandeja de suspenção,\nBatentes,\nBieletas,\nBuchas,\nKit de suspenção,\nSuporte de motor - câmbio,\nSuporte do amortecedor,\nSuporte do escapamento"
   },
@@ -903,9 +903,14 @@ const array = [
   },
 ]
 
+const arrayStaticProdutos = [
+  { params: { slugFabri: 'tecfil', slugProd: 'ART6704-1644-filtro-Ar-Trapezoidal'} },
+  { params: { slugFabri: 'tecfil', slugProd: 'PSL619-75-filtro-Lubrificante'} },
+]
+
 export const getOneFa = (slug) => {
   let arr = {}
-  array.map(x => {
+  arrayFabricantes.map(x => {
     if (x.slug === slug) {
       arr = x
     }
@@ -913,4 +918,5 @@ export const getOneFa = (slug) => {
   return (arr.slug) ? arr : {}
 }
 
-export const getAllFa = () => { return array}
+export const getAllFa = () => { return arrayFabricantes}
+export const getAllStaticProdutos = () => { return arrayStaticProdutos}

@@ -75,7 +75,6 @@ export default function CatalogoDePecas({listFab}) {
         </Container>
         <ListFabricante array={listFab} />
       </Box>
-      <h1>ola mundo</h1>
     </>
   )
 }

@@ -1,13 +1,12 @@
 import {useRouter} from "next/router";
 import {searchProduto} from "../../../../../lib/api-consulta-pecas";
-import {getAllFa} from "../../../../../lib/lib-fabricante";
+import {getAllFa, getAllStaticProdutos, getOneFa} from "../../../../../lib/lib-fabricante";
 
 export default function ProdutoView ({prod}) {
-  const { isFallback } = useRouter();
+  const { isFallback, route } = useRouter();
   if (isFallback) {
     return <p>Carregando...</p>;
   }
-  console.log(prod)
   return (
     <>
       <h1>Olaaaaa {prod.nome}</h1>
@@ -17,8 +16,8 @@ export default function ProdutoView ({prod}) {
     </>
   )
 }
-export const getStaticPaths = async () => {
-  const paths = [];
+export const getStaticPaths = async (context) => {
+  const paths = getAllStaticProdutos()
   return {
     paths,
     fallback: true,

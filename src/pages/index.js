@@ -142,7 +142,7 @@ export default function Home() {
       <Box as={motion.main} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Box as={'header'} className={styles.header} backgroundImage={dotsBack}>
           <Container pt={'5rem'} maxW='container.sm' textAlign={'center'} mb={'5rem'}>
-            <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.primary['700'], theme.colors.primary['100'])}>
+            <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.text, theme.colors.primary['100'])}>
               Seu Sistema de Auto Peças completo e grátis.
             </Heading>
             <Text size='lg' mt={7} mb={7}>
