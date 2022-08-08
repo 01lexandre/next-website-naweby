@@ -281,6 +281,7 @@ export default function BoxSearch() {
       </form>
       <br/><br/>
       <AirbnbCard resultAplicacoes={listProdutos} />
+      <br/>
     </Box>
   )
 }

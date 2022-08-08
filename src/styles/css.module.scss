@@ -5,6 +5,8 @@ $color-dark_primary: #3524cf;
   background-color: #F6F5FA;
   background-repeat: no-repeat;
   background-position: top;
+  position: relative;
+  z-index: 11;
 }
 .sect {
   background-repeat: no-repeat;

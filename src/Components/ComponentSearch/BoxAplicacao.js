@@ -17,7 +17,7 @@ function AirbnbCard({resultAplicacoes}) {
     //   },
     // })
     await router.push({
-      pathname: 'catalogo-de-pecas/fabricante/'+prod.fabricante.slug+'/p/[slugProd]',
+      pathname: window.location.origin+'/catalogo-de-pecas/fabricante/'+prod.fabricante.slug+'/p/[slugProd]',
       query: {
         slugProd: prod.cod_fabricante + '-' + prod.id + '-' + prod.nome.replace(' ', '-')
       },
