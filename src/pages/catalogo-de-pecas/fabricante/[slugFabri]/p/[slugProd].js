@@ -5,6 +5,7 @@ import {Box, Container, Grid, GridItem, Link, Skeleton, Tag, Text, Tooltip} from
 import {setRGBDataURL} from "../../../../../lib/utils";
 import Image from "next/image";
 import React, {useState} from "react";
+import {NextSeo} from "next-seo";
 
 function FotosProd({nome,fotos, slug}) {
   console.log('https://s3.amazonaws.com/cdn.naweby.com.br/products/'+slug+'/'+fotos[0].foto)
@@ -15,7 +16,7 @@ function FotosProd({nome,fotos, slug}) {
         <GridItem colSpan={3}>
           <Box>
             {fotos.map(foto => (
-              <Box onClick={() => {setFotoPrinc(foto.foto)}} bg={'red'} cursor={'pointer'}>
+              <Box onClick={() => {setFotoPrinc(foto.foto)}} cursor={'pointer'}>
                 <Image
                   src={'https://s3.amazonaws.com/cdn.naweby.com.br/products/'+slug+'/'+foto.foto}
                   alt={nome}
@@ -30,7 +31,7 @@ function FotosProd({nome,fotos, slug}) {
           </Box>
         </GridItem>
         <GridItem colSpan={9}>
-          <Box bg={'yellow'}>
+          <Box>
             <Image
               src={'https://s3.amazonaws.com/cdn.naweby.com.br/products/'+slug+'/'+fotoPrinc}
               alt={nome}
@@ -68,8 +69,41 @@ export default function ProdutoView ({prod}) {
       </Box>
     )
   }
+  const SEO = {
+    canonical: 'https://www.naweby.com.br/catalogo-de-pecas',
+    title: 'Catálogo de peças online - ' + process.env.APP_NAME,
+    description: 'Catálogo de peças online - ',
+  }
   return (
     <>
+      <NextSeo
+        description={SEO.description}
+        canonical={SEO.canonical}
+        title={SEO.title}
+        openGraph={{
+          url: SEO.canonical,
+          title: SEO.title,
+          description: SEO.description,
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+        twitter={{
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+      />
       <Box as={'section'}>
         <Container maxW='container.lg'>
           <Grid templateColumns='repeat(12, 1fr)' gap={6}>

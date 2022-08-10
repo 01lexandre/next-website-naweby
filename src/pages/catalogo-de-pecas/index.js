@@ -18,15 +18,17 @@ import {getAllFa, getOneFa} from "../../lib/lib-fabricante";
 import ImageHeader from "../../assets/baksistem.png";
 import {setRGBDataURL} from "../../lib/utils";
 import Image from "next/image";
+import {NextSeo} from "next-seo";
+import {useState} from "react";
 
 function ListFabricante ({array}) {
-  let fabrics = array.sort(() => Math.random() - 0.5).splice(0, 8)
+  const [fabrics, setfabrics] = useState(array.sort(() => Math.random() - 0.5).splice(0, 8))
   const loaderImg = ({ src, width, quality }) => {
     return `./fabri-marca/${src}?w=${width}&q=${quality || 75}`
   }
   return (
     <>
-      <Container maxW='container.lg'>
+      <Container maxW='container.lg' mb={5}>
         <Grid templateColumns='repeat(12, 1fr)' gap={6}>
           {fabrics.map((fa, i) => (
             <GridItem key={i} colSpan={[12, 6, 3]}>
@@ -49,8 +51,41 @@ function ListFabricante ({array}) {
 }
 
 export default function CatalogoDePecas({listFab}) {
+  const SEO = {
+    canonical: 'https://www.naweby.com.br/catalogo-de-pecas',
+    title: 'Catálogo de peças online - ' + process.env.APP_NAME,
+    description: 'Catálogo de peças online - ',
+  }
   return (
     <>
+      <NextSeo
+        description={SEO.description}
+        canonical={SEO.canonical}
+        title={SEO.title}
+        openGraph={{
+          url: SEO.canonical,
+          title: SEO.title,
+          description: SEO.description,
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+        twitter={{
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+      />
       <Box as={'header'} pt={'5rem'} className={styles.header} backgroundImage={dotsBack} mb={'5rem'}>
         <Container maxW='container.sm' textAlign={'center'}>
           <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.primary['700'], theme.colors.primary['100'])}>

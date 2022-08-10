@@ -23,6 +23,44 @@ import NextLink from "next/link";
 import {BiNews} from "react-icons/bi";
 import {FaFacebookF, FaInstagram, FaTwitter, FaYoutube} from "react-icons/fa";
 import {MdOutlineContactSupport} from "react-icons/md";
+import {NextSeo, WebPageJsonLd} from "next-seo";
+
+
+function SeoPage({fa}) {
+  const canonical = 'https://www.naweby.com.br/catalogo-de-pecas/fabricante/'+fa.slug
+  return (
+    <>
+      <NextSeo
+        description={fa.slogan}
+        canonical={canonical}
+        title={process.env.APP_NAME + ' - Fabricante ' + fa.fantasia}
+        openGraph={{
+          url: canonical,
+          title: process.env.APP_NAME + ' - Fabricante ' + fa.fantasia,
+          description: fa.slogan,
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+        twitter={{
+          images: [
+            {
+              url: process.env.APP_IMAGE_DESTAQUE,
+              width: 1920,
+              height: 1080,
+              alt: process.env.APP_SLOGAN
+            },
+          ],
+        }}
+      />
+    </>
+  )
+}
 
 export default function FabricanteView ({fa}) {
   const { isFallback } = useRouter();
@@ -34,6 +72,7 @@ export default function FabricanteView ({fa}) {
   }
   return (
     <>
+      <SeoPage fa={fa} />
       <Box as={'header'} pt={'5rem'} className={styles.header} backgroundImage={dotsBack} mb={'5rem'}>
         <Container maxW='container.lg'>
           <BoxSearch />

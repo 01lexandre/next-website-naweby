@@ -217,7 +217,7 @@ export default function BoxSearch() {
           </GridItem>
           <GridItem colSpan={[12, 12, 4]}>
             <FormControl className={styles.fControl} isInvalid={formik.errors.categoriasID && formik.touched.categoriasID}>
-              <FormLabel htmlFor='categoriasID'>Grupo</FormLabel>
+              <FormLabel htmlFor='categoriasID'>Categoria</FormLabel>
               <AsyncSelect
                 isDisabled={categoriaDisabled}
                 name={'categoriasID'}
