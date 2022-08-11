@@ -4,15 +4,11 @@ import themeShema from '../styles/theme'
 import {ChakraProvider, extendTheme} from '@chakra-ui/react'
 import {AnimatePresence} from "framer-motion";
 import Script from 'next/script'
-import Footer from "../Components/Footer";
 const theme = extendTheme(themeShema)
 import NextNProgress from 'nextjs-progressbar';
 import {DefaultSeo} from 'next-seo';
 import SEO from '../../next-seo.config';
 import {useRouter} from "next/router";
-import HeaderNav from "../Components/Header/HeaderNav";
-import NotifyWeb from "../Components/Header/NotifyWeb";
-// The handler to smoothly scroll the element into view
 const handExitComplete = () => {
   if (typeof window !== 'undefined') {
     // Get the hash from the url
@@ -33,9 +29,6 @@ const handExitComplete = () => {
     }
   }
 };
-import AppContext from "../../AppContext";
-import NextApp from 'next/app';
-import {getPostsBlog} from "../lib/api";
 
 function Index({posts, Component, pageProps}) {
   const router = useRouter()
@@ -71,26 +64,17 @@ function Index({posts, Component, pageProps}) {
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
             }}
           />
-          <AppContext.Provider
-            value={{
-              state: {
-                languages: 'pt-BR',
-                posts
-              },
-            }}
-          >
-            {(router.pathname === '/tudo-pronto' ? (
-              <>
-                <Component {...pageProps}/>
-              </>
-            ) : (
-              <>
-                <NextNProgress height={4}/>
-                {/*<NotifyWeb posts={posts}/>*/}
-                <Component {...pageProps}/>
-              </>
-            ))}
-          </AppContext.Provider>
+          {(router.pathname === '/tudo-pronto' ? (
+            <>
+              <Component {...pageProps}/>
+            </>
+          ) : (
+            <>
+              <NextNProgress height={4}/>
+              {/*<NotifyWeb posts={posts}/>*/}
+              <Component {...pageProps}/>
+            </>
+          ))}
           <GlobalStyle/>
         </ChakraProvider>
       </AnimatePresence>
