@@ -1,45 +1,6 @@
 import {Box, Button, Container, Flex, Grid, GridItem, Link, Spacer, Tag, useColorModeValue} from "@chakra-ui/react";
 import styles from "../../styles/css.module.scss";
-import React, {useContext} from "react";
 
-import AppContext from "../../../AppContext";
-
-// This function gets called at build time
-export async function getStaticProps() {
-  let query = `
-    {
-      posts(first: 2) {
-        edges {
-          node {
-            slug
-            title
-          }
-        }
-      }
-    }
-  `
-  let variables = {}
-  const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Headers' : 'Content-Type,Authorization,true'
-  }
-  const res = await fetch('http://cms.naweby.com.br/graphql', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
-  const json = await res.json()
-  const posts = json.data.posts.edges
-  console.log(posts)
-  return {
-    props: {
-      posts,
-    },
-  }
-}
 export default function NotifyWeb({posts}) {
   return (
     <Box className={styles.notify} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
