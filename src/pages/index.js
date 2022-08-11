@@ -73,24 +73,10 @@ function SeoHomePage() {
 
 export default function Home({posts}) {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
-
-  const boxVariant = {
-    visible: { opacity: 1,  transition: { duration: 0.8} },
-    hidden: { opacity: 0, }
-  }
-  const control = useAnimation()
-  const [ref, inView] = useInView()
-  useEffect(() => {
-    if (inView) {
-      control.start("visible");
-    } else {
-      control.start("hidden");
-    }
-  }, [control, inView]);
   return (
     <Layout posts={posts}>
       <SeoHomePage />
-      <Box as={motion.main} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <Box>
         <Box as={'header'} className={styles.header} backgroundImage={dotsBack}>
           <Container pt={'5rem'} maxW='container.sm' textAlign={'center'} mb={'5rem'}>
             <Heading as='h1' size='2xl' color={useColorModeValue(theme.colors.text, theme.colors.primary['100'])}>
@@ -144,11 +130,7 @@ export default function Home({posts}) {
         </Box>
 
         <Box as={'section'} pt={'5rem'} pb={'5rem'} backgroundImage={dotsLeft} className={styles.sect}>
-          <Container maxW='container.lg' as={motion.main}
-                     ref={ref}
-                     variants={boxVariant}
-                     initial="hidden"
-                     animate={control}>
+          <Container maxW='container.lg'>
             <Grid templateColumns='repeat(12, 1fr)' gap={6}>
               <GridItem colSpan={[12, 12, 6]}>
                 <Box backgroundPosition={'center top'} backgroundImage={imageDe123} backgroundSize={'cover'} backgroundRepeat={'no-repeat'} minH='sm' borderRadius='lg' overflow='hidden'>
@@ -199,6 +181,6 @@ export async function getStaticProps(context) {
     props: {
       posts: responsePosts
     },
-    revalidate: 10
+    // revalidate: 10
   }
 }

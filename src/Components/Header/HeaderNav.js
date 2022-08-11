@@ -7,21 +7,8 @@ import logoPrincipal from "../../assets/logo-princ.png";
 import styles from "../../styles/css.module.scss";
 import { motion } from "framer-motion"
 export default function HeaderNav() {
-  // const handleScroll = () => {
-  //   console.log('aqui', window.scrollY)
-  //   if (window.scrollY >= 300) {
-  //     console.log('fix')
-  //   }
-  // }
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // });
   return (
-    <Container as={motion.div}
-               animate={{ y: 0 }}
-               initial={{y: -100}}
-               transition={{ duration: 0.5 }} maxW='container.xl' id="header" bg={useColorModeValue('#FFFFF', 'gray.900')} pt={3} pb={3}>
+    <Container maxW='container.xl' id="header" bg={useColorModeValue('#FFFFF', 'gray.900')} pt={3} pb={3}>
       <Flex w="100%" align="center">
         <NextLink href={'/'} passHref>
           <a>

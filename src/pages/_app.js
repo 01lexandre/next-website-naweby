@@ -98,42 +98,4 @@ function Index({posts, Component, pageProps}) {
   )
 }
 
-// Index.getInitialProps = async (appContext) => {
-//   const appProps = await NextApp.getInitialProps(appContext);
-//   // let query = `
-//   //   {
-//   //     posts(first: 2) {
-//   //       edges {
-//   //         node {
-//   //           slug
-//   //           title
-//   //         }
-//   //       }
-//   //     }
-//   //   }
-//   // `
-//   // let variables = {}
-//   // const headers = {
-//   //   'Content-Type': 'application/json',
-//   //   'Access-Control-Allow-Headers' : 'Content-Type,Authorization,true'
-//   // }
-//   // const res = await fetch('http://cms.naweby.com.br/graphql', {
-//   //   method: 'POST',
-//   //   headers,
-//   //   body: JSON.stringify({
-//   //     query,
-//   //     variables,
-//   //   }),
-//   // })
-//   // const json = await res.json()
-//   // const posts = json.data.posts.edges
-//   // const posts = {}
-//   const posts = await getPostsBlog()
-//   return {
-//     ...appProps,
-//     posts: posts,
-//     revalidate: 1,
-//   }
-// }
-
 export default Index
