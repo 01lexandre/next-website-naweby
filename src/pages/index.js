@@ -27,57 +27,8 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {ArrowForwardIcon} from "@chakra-ui/icons";
 import {setRGBDataURL} from "../lib/utils";
-
-function FormHome() {
-  const router = useRouter()
-  return (
-    <Formik
-      initialValues={{email: ''}}
-      validate={values => {
-        const errors = {};
-        if (!values.email) {
-          errors.email = 'Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address';
-        }
-        return errors;
-      }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          router.push('/cadastre-se-gratis?mail='+values.email)
-          actions.setSubmitting(false)
-        }, 1000)
-      }}
-    >
-      {(props) => (
-        <Form>
-          <Field name='email'>
-            {({field, form}) => (
-              <FormControl isInvalid={form.errors.email && form.touched.email}>
-                <Input size='lg' bg={'#fff'} color={theme.colors.text} {...field} id='email'
-                       placeholder='Informe seu e-mail.'/>
-                <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
-          <Button
-            id={'bt_footerAction'}
-            mt={3}
-            borderRadius={41}
-            w={'100%'}
-            colorScheme='secundary'
-            isLoading={props.isSubmitting}
-            type='submit'
-          >
-            Cadastre-se agora.
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  )
-}
+import Layout from "../Components/Layout";
+import {getPostsBlog} from "../lib/api";
 
 function SeoHomePage() {
   return (
@@ -120,7 +71,7 @@ function SeoHomePage() {
   )
 }
 
-export default function Home() {
+export default function Home({posts}) {
   const bgAction = useColorModeValue(theme.colors.primary['400'], theme.colors.primary['100'])
 
   const boxVariant = {
@@ -137,7 +88,7 @@ export default function Home() {
     }
   }, [control, inView]);
   return (
-    <>
+    <Layout posts={posts}>
       <SeoHomePage />
       <Box as={motion.main} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Box as={'header'} className={styles.header} backgroundImage={dotsBack}>
@@ -238,6 +189,16 @@ export default function Home() {
           </Container>
         </Box>
       </Box>
-    </>
+    </Layout>
   )
+}
+// Nao atualiza automatico
+export async function getStaticProps(context) {
+  const responsePosts = await getPostsBlog()
+  return {
+    props: {
+      posts: responsePosts
+    },
+    revalidate: 10
+  }
 }

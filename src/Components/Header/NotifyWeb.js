@@ -40,8 +40,7 @@ export async function getStaticProps() {
     },
   }
 }
-export default function NotifyWeb() {
-  const {state} = useContext(AppContext);
+export default function NotifyWeb({posts}) {
   return (
     <Box className={styles.notify} bg={useColorModeValue('#F6F5FA', 'gray.900')}>
       <Container maxW='container.xl' pb={1} pt={1}>
@@ -50,7 +49,7 @@ export default function NotifyWeb() {
             <Flex w="100%" align="center">
               <Tag size={'sm'} variant='subtle' colorScheme='green'><strong>VEJA O QUE TEMOS DE NOVO!</strong></Tag>
               <Box bg={'#2d3748'} w={1.5} h={1.5} borderRadius={'10px'} ml={1} mr={1}></Box>
-              <small><Link href={'https://blog.naweby.com.br/posts/'+state.posts[0].node.slug} isExternal>{state.posts[0].node.title}</Link></small>
+              <small><Link href={'https://blog.naweby.com.br/posts/'+posts[0].node.slug} isExternal>{posts[0].node.title}</Link></small>
             </Flex>
           </GridItem>
           <GridItem colSpan={[4, 4, 1]}>
